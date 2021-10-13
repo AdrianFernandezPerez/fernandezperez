@@ -1,3 +1,4 @@
+import clients
 from window import *
 from windowaviso import *
 import sys, var, events
@@ -21,10 +22,16 @@ class Main(QtWidgets.QMainWindow):
         Eventos de botón
         '''
         var.ui.btnSalir.clicked.connect(events.Eventos.Salir)
+        var.ui.rbtGroupSex.buttonClicked.connect(clients.Clientes.SelSexo)
+        var.ui.chkGroupPago.buttonClicked.connect(clients.Clientes.selPago)
         '''
         Eventos de la barra de menús
         '''
         var.ui.actionSalir.triggered.connect(events.Eventos.Salir)
+        '''
+        Eventos caja de texto
+        '''
+        var.ui.txtDNI.editingFinished.connect(clients.Clientes.validarDNI)
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])
