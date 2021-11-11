@@ -201,38 +201,13 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="layoutWidget_5">
-       <property name="geometry">
-        <rect>
-         <x>580</x>
-         <y>120</y>
-         <width>191</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_7">
-        <item>
-         <widget class="QLabel" name="lblMunicipio">
-          <property name="styleSheet">
-           <string notr="true">font: 10pt &quot;MS Shell Dlg 2&quot;;</string>
-          </property>
-          <property name="text">
-           <string>Municipio:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QComboBox" name="cmbMuni"/>
-        </item>
-       </layout>
-      </widget>
       <widget class="QWidget" name="layoutWidget_6">
        <property name="geometry">
         <rect>
          <x>70</x>
          <y>40</y>
-         <width>701</width>
-         <height>34</height>
+         <width>611</width>
+         <height>35</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_9">
@@ -248,7 +223,7 @@
             </property>
            </widget>
           </item>
-          <item alignment="Qt::AlignLeft">
+          <item>
            <widget class="QLineEdit" name="txtDNI">
             <property name="minimumSize">
              <size>
@@ -287,6 +262,23 @@
            </widget>
           </item>
          </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnRefrescar">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>img/refresh.png</normaloff>img/refresh.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>25</width>
+            <height>25</height>
+           </size>
+          </property>
+         </widget>
         </item>
         <item>
          <spacer name="horizontalSpacer">
@@ -340,7 +332,7 @@
       <widget class="QPushButton" name="btnSalir">
        <property name="geometry">
         <rect>
-         <x>420</x>
+         <x>500</x>
          <y>230</y>
          <width>82</width>
          <height>23</height>
@@ -362,7 +354,7 @@
       <widget class="QPushButton" name="btnGrabaCli">
        <property name="geometry">
         <rect>
-         <x>310</x>
+         <x>230</x>
          <y>230</y>
          <width>83</width>
          <height>23</height>
@@ -377,7 +369,7 @@
         <rect>
          <x>71</x>
          <y>80</y>
-         <width>701</width>
+         <width>500</width>
          <height>29</height>
         </rect>
        </property>
@@ -407,7 +399,7 @@
           <property name="sizeHint" stdset="0">
            <size>
             <width>30</width>
-            <height>10</height>
+            <height>13</height>
            </size>
           </property>
          </spacer>
@@ -431,27 +423,56 @@
         </item>
        </layout>
       </widget>
-      <widget class="QPushButton" name="btnRefrescar">
+      <widget class="QPushButton" name="btnModifCli">
        <property name="geometry">
         <rect>
-         <x>730</x>
-         <y>180</y>
-         <width>41</width>
-         <height>41</height>
+         <x>320</x>
+         <y>230</y>
+         <width>83</width>
+         <height>23</height>
         </rect>
        </property>
        <property name="text">
-        <string/>
+        <string>Modificar</string>
        </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>img/refresh.png</normaloff>img/refresh.png</iconset>
+      </widget>
+      <widget class="QPushButton" name="btnBajaCli">
+       <property name="geometry">
+        <rect>
+         <x>410</x>
+         <y>230</y>
+         <width>83</width>
+         <height>23</height>
+        </rect>
        </property>
-       <property name="iconSize">
-        <size>
-         <width>25</width>
+       <property name="text">
+        <string>Eliminar</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="cmbMuni">
+       <property name="geometry">
+        <rect>
+         <x>679</x>
+         <y>123</y>
+         <width>121</width>
          <height>25</height>
-        </size>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lblMunicipio">
+       <property name="geometry">
+        <rect>
+         <x>581</x>
+         <y>121</y>
+         <width>58</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 10pt &quot;MS Shell Dlg 2&quot;;</string>
+       </property>
+       <property name="text">
+        <string>Municipio:</string>
        </property>
       </widget>
      </widget>
@@ -489,6 +510,22 @@
         <string>Formas de Pago</string>
        </property>
       </column>
+     </widget>
+     <widget class="QLabel" name="lblFecha">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>530</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
@@ -532,9 +569,19 @@
     <property name="title">
      <string>Archivo</string>
     </property>
+    <addaction name="actionAbrir"/>
+    <addaction name="separator"/>
     <addaction name="actionSalir"/>
    </widget>
+   <widget class="QMenu" name="menuHerramientas">
+    <property name="title">
+     <string>Herramientas</string>
+    </property>
+    <addaction name="actionCrear_Backup"/>
+    <addaction name="actionRestaurar_Base_de_Datos"/>
+   </widget>
    <addaction name="menuArchivo"/>
+   <addaction name="menuHerramientas"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionSalir">
@@ -543,6 +590,21 @@
    </property>
    <property name="shortcut">
     <string>Alt+S</string>
+   </property>
+  </action>
+  <action name="actionAbrir">
+   <property name="text">
+    <string>Abrir</string>
+   </property>
+  </action>
+  <action name="actionCrear_Backup">
+   <property name="text">
+    <string>Crear Backup</string>
+   </property>
+  </action>
+  <action name="actionRestaurar_Base_de_Datos">
+   <property name="text">
+    <string>Restaurar Base de Datos</string>
    </property>
   </action>
  </widget>
