@@ -48,6 +48,10 @@ class Main(QtWidgets.QMainWindow):
         '''
         var.ui.btnCalendar.clicked.connect(events.Eventos.abrircal)
         var.ui.btnSalir.clicked.connect(events.Eventos.Salir)
+        var.ui.actiontoolbarsalir.triggered.connect(events.Eventos.Salir)
+        var.ui.toolbarAbrirDir.triggered.connect(events.Eventos.AbrirDir)
+        var.ui.toolbarBackUp.triggered.connect(events.Eventos.crearBackup)
+        var.ui.actiontoolbarimprimir.triggered.connect(events.Eventos.imprimir)
         var.ui.rbtGroupSex.buttonClicked.connect(clients.Clientes.selSexo)
         var.ui.chkGroupPago.buttonClicked.connect(clients.Clientes.selPago)
         var.ui.btnGrabaCli.clicked.connect(clients.Clientes.guardaCli)
@@ -60,7 +64,11 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionSalir.triggered.connect(events.Eventos.Salir)
         var.ui.actionAbrir.triggered.connect(events.Eventos.Abrir)
         var.ui.actionCrear_Backup.triggered.connect(events.Eventos.crearBackup)
-        var.ui.actionRestaurar_Base_de_Datos.triggered.connect(events.Eventos.restaurarBd)
+        var.ui.actionRecuperar_Backup.triggered.connect(events.Eventos.restaurarBackup)
+        var.ui.actionImprimir.triggered.connect(events.Eventos.imprimir)
+        var.ui.actionExportar_Datos.triggered.connect(events.Eventos.ExportarDatos)
+        var.ui.actionImportar_Datos.triggered.connect(events.Eventos.ImportarExcel)
+
         '''
         Eventos caja de texto
         '''
