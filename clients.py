@@ -7,6 +7,10 @@ from window import *
 import events
 
 class Clientes():
+
+    '''
+    Metodo para la validación del dni
+    '''
     def validarDNI():
         try:
             dni = var.ui.txtDNI.text()
@@ -30,28 +34,7 @@ class Clientes():
         except Exception as error:
             print('Error en módulo validar el dni')
 
-    def selSexo(self):
-        try:
-            if var.ui.rbtFem.isChecked():
-                print('Marcado femenino')
-            if var.ui.rbtHom.isChecked():
-                print('Marcado masculino')
-        except Exception as error:
-            print('Error en módulo seleccionar sexo:', error)
 
-    def selPago(self):
-        try:
-            if var.ui.chkEfectivo.isChecked():
-                print('Has seleccionado efectivo')
-            if var.ui.chkTarjeta.isChecked():
-                print('Has seleccionado Tarjeta')
-            if var.ui.chkCargoCuenta.isChecked():
-                print('Has seleccionado cargar en cuenta')
-            if var.ui.chkTransfe.isChecked():
-                print('Has seleccionado transferencia')
-
-        except Exception as error:
-            print('Error en módulo seleccionar forma de pago', error)
 
 
 
@@ -96,7 +79,9 @@ class Clientes():
             print('Error en limpiar formulario clientes', error)
 
 
-
+    '''
+    Metodo para cargar todos los datos del cliente seleccionado en la tabla
+    '''
     def cargaCli(self):
         try:
             fila = var.ui.tabClientes.selectedItems()
@@ -114,11 +99,11 @@ class Clientes():
             if 'Cargo' in row[4]:
                 var.ui.chkCargoCuenta.setChecked(True)
             #row[0] es el dni
+            #Le pasa a onecli el dni del usuario a cargar y carga sus datos
             registro = conexion.Conexion.oneCli(row[0])
             var.ui.txtDir.setText(str(registro[0]))
             var.ui.cmbPro.setCurrentText(str(registro[1]))
             var.ui.cmbMuni.setCurrentText(str(registro[2]))
-            print(registro)
             if str(registro[3]) == 'Hombre':
                 var.ui.rbtHom.setChecked(True)
             elif str(registro[3]) == 'Mujer':
@@ -126,7 +111,9 @@ class Clientes():
         except Exception as Error:
             print('Error en guardar clientes ', Error)
 
-
+    '''
+    Metodo para guardar el cliente
+    '''
     def guardaCli(self):
         try:
             #preparamos el registro
@@ -173,6 +160,9 @@ class Clientes():
         except Exception as error:
             print('Error en guardar clientes', error)
 
+    '''
+    Metodo para capturar los datos del cliente a modificar y pasarlo al metodo que lo modifica
+    '''
     def modifCli(self):
         try:
             modcliente = []
@@ -212,11 +202,32 @@ class Clientes():
         except Exception as error:
             print('Problemas en altaCliente', error)
 
+    '''
+    Metodo para pasar el dni al metodo que da de baja un cliente
+    '''
     def bajaCli(self):
         try:
             dni = var.ui.txtDNI.text()
             conexion.Conexion.bajaCli(dni)
             conexion.Conexion.cargaTabCli(self)
+
         except Exception as error:
             print('Problemas en baja cliente', error)
+
+    '''
+    Metodo que cambia el valor de un lbl dependiendo del valor en el spin
+    '''
+    def envio(self):
+        try:
+            if var.ui.spinEnvio.value() == 0:
+                var.ui.lblEnvio.setText('Recogida por cliente')
+            elif var.ui.spinEnvio.value() == 1:
+                var.ui.lblEnvio.setText('Envío Nacional Paquetería Express Urgente')
+            elif var.ui.spinEnvio.value() == 2:
+                var.ui.lblEnvio.setText('Envío Nacional Paquetería Normal')
+            elif var.ui.spinEnvio.value() == 3:
+                var.ui.lblEnvio.setText('Envío Interncional')
+        except Exception as error:
+            print('Error en modulo envío', error)
+
 

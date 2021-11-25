@@ -40,5 +40,5 @@ class Ui_Aviso(object):
 
     def retranslateUi(self, Aviso):
         _translate = QtCore.QCoreApplication.translate
-        Aviso.setWindowTitle(_translate("Aviso", "Dialog"))
+        Aviso.setWindowTitle(_translate("Aviso", "Aviso"))
         self.lblaviso.setText(_translate("Aviso", "¿Desea Salir?"))

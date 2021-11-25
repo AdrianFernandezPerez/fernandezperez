@@ -1,5 +1,7 @@
+import articulos
 import clients
 import conexion
+import informes
 from window import *
 from windowaviso import *
 from windowcal import *
@@ -48,16 +50,20 @@ class Main(QtWidgets.QMainWindow):
         '''
         var.ui.btnCalendar.clicked.connect(events.Eventos.abrircal)
         var.ui.btnSalir.clicked.connect(events.Eventos.Salir)
-        var.ui.actiontoolbarsalir.triggered.connect(events.Eventos.Salir)
-        var.ui.toolbarAbrirDir.triggered.connect(events.Eventos.AbrirDir)
-        var.ui.toolbarBackUp.triggered.connect(events.Eventos.crearBackup)
-        var.ui.actiontoolbarimprimir.triggered.connect(events.Eventos.imprimir)
-        var.ui.rbtGroupSex.buttonClicked.connect(clients.Clientes.selSexo)
-        var.ui.chkGroupPago.buttonClicked.connect(clients.Clientes.selPago)
         var.ui.btnGrabaCli.clicked.connect(clients.Clientes.guardaCli)
         var.ui.btnRefrescar.clicked.connect(clients.Clientes.limpiaFormCli)
         var.ui.btnBajaCli.clicked.connect(clients.Clientes.bajaCli)
         var.ui.btnModifCli.clicked.connect(clients.Clientes.modifCli)
+
+        '''
+        Eventos del toolbar
+        '''
+        var.ui.actiontoolbarsalir.triggered.connect(events.Eventos.Salir)
+        var.ui.toolbarAbrirDir.triggered.connect(events.Eventos.AbrirDir)
+        var.ui.toolbarBackUp.triggered.connect(events.Eventos.crearBackup)
+        var.ui.toolbarRecBackUp.triggered.connect(events.Eventos.restaurarBackup)
+        var.ui.actiontoolbarimprimir.triggered.connect(events.Eventos.imprimir)
+
         '''
         Eventos de la barra de menús y de herramientas
         '''
@@ -68,6 +74,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionImprimir.triggered.connect(events.Eventos.imprimir)
         var.ui.actionExportar_Datos.triggered.connect(events.Eventos.ExportarDatos)
         var.ui.actionImportar_Datos.triggered.connect(events.Eventos.ImportarExcel)
+        var.ui.actionListado_Clientes.triggered.connect(informes.Informes.listadoClientes)
 
         '''
         Eventos caja de texto
@@ -78,13 +85,6 @@ class Main(QtWidgets.QMainWindow):
         var.ui.txtNome.editingFinished.connect(clients.Clientes.mayustxt)
         var.ui.txtDir.editingFinished.connect(clients.Clientes.mayustxt)
 
-        '''
-        Eventos de comboBox antiguos
-        clients.Clientes.cargaProv(self)
-        var.ui.cmbPro.activated[str].connect(clients.Clientes.selProv)
-        clients.Clientes.cargaMuni(self)
-        var.ui.cmbMuni.activated[str].connect(clients.Clientes.selMuni)
-        '''
 
         '''
         Barra de estado
@@ -106,7 +106,48 @@ class Main(QtWidgets.QMainWindow):
         conexion.Conexion.db_connect(var.filedb)
         conexion.Conexion.cargaTabCli(self)
         conexion.Conexion.cargaProv(self)
-        var.ui.cmbPro.activated[int].connect(conexion.Conexion.cargaMuni)
+        #Carga los municipios de la provincia indicada
+        var.ui.cmbPro.currentIndexChanged.connect(conexion.Conexion.cargaMuni)
+
+        '''
+        SpinBox
+        '''
+        var.ui.spinEnvio.valueChanged.connect((clients.Clientes.envio))
+
+
+
+        '''
+        //////VENTANA ARTICULOS/////
+        '''
+        var.ui.btnRefrescarArticulo.clicked.connect(articulos.Articulos.limpiaFormArticulo)
+
+
+        '''
+        Eventos caja de texto
+        '''
+        var.ui.txtNomeArticulo.editingFinished.connect(articulos.Articulos.mayustxt)
+
+        '''
+        Eventos de boton
+        '''
+        var.ui.btnSalirArticulo.clicked.connect(events.Eventos.Salir)
+        var.ui.btnGrabaArticulo.clicked.connect(articulos.Articulos.guardaArticulo)
+        var.ui.btnBajaArticulo.clicked.connect(articulos.Articulos.bajaArticulo)
+        var.ui.btnModifArticulo.clicked.connect(articulos.Articulos.modifArticulo)
+        var.ui.btnBuscaArticulo.clicked.connect(articulos.Articulos.buscArticulo)
+
+        '''
+        Eventos QTabWidget
+        '''
+        events.Eventos.resizeTablaArticulos(self)
+        var.ui.tabArticulos.clicked.connect(articulos.Articulos.cargaArticulo)
+        var.ui.tabArticulos.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
+
+        '''
+        Base de datos
+        '''
+        conexion.Conexion.cargaTabArt(self)
+
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])

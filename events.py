@@ -18,6 +18,10 @@ import var
 
 
 class Eventos():
+
+    '''
+    Metodo para salir del programa
+    '''
     def Salir(self):
         try:
             var.dlgaviso.show()
@@ -28,12 +32,18 @@ class Eventos():
         except Exception() as error:
             print('Error en módulo salir', error)
 
+    '''
+    Metodo para abrir el calendario
+    '''
     def abrircal(self):
         try:
             var.dlgcalendar.show()
         except Exception() as error:
             print('Error al abrir el calendario', error)
 
+    '''
+    Metodo para redimensionar la tabla clientes
+    '''
     def resizeTablaCli(self):
         try:
             header = var.ui.tabClientes.horizontalHeader()
@@ -45,6 +55,9 @@ class Eventos():
         except Exception as error:
             print("Error al redimensionar la tabla", error)
 
+    '''
+    Metodo el cual muestra un error cuando un dni es erroneo
+    '''
     def errorDni(self):
         try:
             msgBox = QMessageBox()
@@ -56,12 +69,18 @@ class Eventos():
         except Exception as error:
             print('Error en mensaje error DNI', error)
 
+    '''
+    Metodo para abrir el dialogo buscador
+    '''
     def Abrir(self):
         try:
             var.dlgabrir.show()
         except Exception as error:
             print('Error al abrir cuadro dialogo', error)
 
+    '''
+    Metodo para crear backups
+    '''
     def crearBackup(self):
         try:
             fecha = datetime.today()
@@ -86,6 +105,9 @@ class Eventos():
         except Exception as error:
             print('Error al crear un backup', error)
 
+    '''
+    Metodo para restaurar backups
+    '''
     def restaurarBackup(self):
         try:
 
@@ -112,6 +134,9 @@ class Eventos():
         except Exception as error:
             print('Error al restaurar backup', error)
 
+    '''
+    Metodo para abrir la ventana de imprimir 
+    '''
     def imprimir(self):
         try:
             printDialog = QtPrintSupport.QPrintDialog()
@@ -120,12 +145,18 @@ class Eventos():
         except Exception as error:
             print('Error al abrir ventana impresora', error)
 
+    '''
+    Metodo para abrir el explorador
+    '''
     def AbrirDir(self):
         try:
             var.dlgabrir.show()
         except Exception as error:
             print('Error abrir explorador: %s ' % str(error))
 
+    '''
+    Metodo para exportar datos 
+    '''
     def ExportarDatos(self):
         try:
             conexion.Conexion.exportExcel(self)
@@ -141,6 +172,9 @@ class Eventos():
         except Exception as error:
             print('Error en evento exportar datos ', error)
 
+    '''
+    Metodo para importar a excel
+    '''
     def ImportarExcel(self):
         try:
             newcli = []
@@ -165,3 +199,17 @@ class Eventos():
                 contador = contador + 1
         except Exception as error:
             print('Error al importar ', error)
+
+    '''
+    Metodo para redimensionar la tabla articulos
+    '''
+    def resizeTablaArticulos(self):
+        try:
+            header = var.ui.tabArticulos.horizontalHeader()
+            for i in range(3):
+                header.setSectionResizeMode(i, QtWidgets.QHeaderView.Stretch)
+                if i == 2:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeToContents)
+
+        except Exception as error:
+            print("Error al redimensionar la tabla articulos", error)
