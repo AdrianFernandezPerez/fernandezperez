@@ -40,9 +40,20 @@ class Clientes():
 
     def cargarFecha(qDate):
         try:
-            data = ('{0}/{1}/{2}'.format(qDate.day(), qDate.month(), qDate.year()))
-            var.ui.txtAltaCli.setText(str(data))
+            data = (str(qDate.day()).zfill(2) + '/' + str(qDate.month()).zfill(2) + '/' + str(qDate.year()))
+            if var.ui.tabWidget.currentIndex() == 0:
+                var.ui.txtAltaCli.setText(str(data))
+            elif var.ui.tabWidget.currentIndex() == 1:
+                var.ui.txtFechaFactura.setText(str(data))
             var.dlgcalendar.hide()
+        except Exception as error:
+            print('Error cargar fecha en txtFecha', error)
+
+    def cargarFechaFactura(qDate):
+        try:
+            data = ('{0}/{1}/{2}'.format(qDate.day(), qDate.month(), qDate.year()))
+            var.ui.txtFechaFactura.setText(str(data))
+            var.dlgcalendarFac.hide()
         except Exception as error:
             print('Error cargar fecha en txtFecha', error)
 

@@ -1,7 +1,7 @@
 from datetime import datetime
 
 import xlwt as xlwt
-from PyQt5 import QtSql, QtWidgets
+from PyQt5 import QtSql, QtWidgets, QtCore
 
 import clients
 import var
@@ -380,3 +380,108 @@ class Conexion():
                     index += 1
         except Exception as error:
             print('Problemas en buscar un articulo en conexion', error)
+
+
+    '''
+    Gestión Facturación
+    '''
+
+    def buscaClifac(dni):
+        try:
+            registro = []
+            query = QtSql.QSqlQuery()
+            query.prepare('select dni, apellidos, nombre from clientes where dni = :dni')
+            print(str(dni))
+            query.bindValue(':dni', str(dni))
+            if query.exec_():
+                while query.next():
+                    registro.append(query.value(1))
+                    registro.append(query.value(2))
+            return registro
+        except Exception as error:
+            print('Problemas en busca cliente en facturación', error)
+
+    def buscaDNIFac(numfac):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare('select dni from facturas where codfac = :numfac')
+            query.bindValue(':numfac', int(numfac))
+            if query.exec_():
+                while query.next():
+                    dni = query.value(0)
+            return dni
+        except Exception as error:
+            print('Error en carga listado facturas', error)
+
+    def altaFac(registro):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare('insert into facturas (dni, fechafac) VALUES (:txtDni, :txtFechaFactura)')
+            query.bindValue(':txtDni', str(registro[0]))
+            query.bindValue(':txtFechaFactura', str(registro[1]))
+            if query.exec_():
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Information)
+                msg.setText('Factura dada de alta')
+                msg.exec()
+            else:
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Warning)
+                msg.setText('Error al dar de alta la factura')
+                msg.exec()
+        except Exception as error:
+            print('Error en carga listado facturas', error)
+
+    def cargaFacs(self):
+        """
+        Funcion que carga facturas.
+        """
+        try:
+            # linea de prueba
+            var.ui.tabFacturas.clearContents()
+            ######
+            index = 0
+            query = QtSql.QSqlQuery()
+            query.prepare('select codfac, fechafac from facturas')
+            if query.exec_():
+                while query.next():
+                    codigo = query.value(0)
+                    fechafac = query.value(1)
+                    var.ui.tabFacturas.setRowCount(index + 1)
+                    var.ui.tabFacturas.setItem(index, 0, QtWidgets.QTableWidgetItem(str(codigo)))
+                    var.ui.tabFacturas.setItem(index, 1, QtWidgets.QTableWidgetItem(str(fechafac)))
+                    var.ui.tabFacturas.item(index, 0).setTextAlignment(QtCore.Qt.AlignCenter)
+                    var.ui.tabFacturas.item(index, 1).setTextAlignment(QtCore.Qt.AlignCenter)
+                    index += 1
+
+        except Exception as error:
+            print('Problemas mostrar tabla facturas', error)
+
+    def cargaCmbproducto(self):
+        try:
+            var.cmbProducto.clear()
+            query = QtSql.QSqlQuery()
+            var.cmbProducto.addItem('')
+            query.prepare('select nombre from articulos order by nombre')
+            if query.exec_():
+                print('Hola')
+                while query.next():
+                    var.cmbProducto.addItem(str(query.value(0)))
+        except Exception as error:
+            print('Error cargar combo productos', error)
+
+    def obtenerCodPrecio(articulo):
+        try:
+            dato = []
+            query = QtSql.QSqlQuery()
+            query.prepare('select idArticulo, precio_unidad from articulos where nombre = :nombre')
+            query.bindValue(':nombre', str())
+            if query.exec_():
+                while query.next():
+                    dato.append(int(query.value(0)))
+                    dato.append(str(query.value(1)))
+            return dato
+        except Exception as error:
+            print('Error cargar precio en conexion', error)

@@ -42,6 +42,15 @@ class Eventos():
             print('Error al abrir el calendario', error)
 
     '''
+    Metodo para abrir el calendario de facturas
+    '''
+    def abrircalFac(self):
+        try:
+            var.dlgcalendarFac.show()
+        except Exception() as error:
+            print('Error al abrir el calendario', error)
+
+    '''
     Metodo para redimensionar la tabla clientes
     '''
     def resizeTablaCli(self):

@@ -2,6 +2,7 @@ import articulos
 import clients
 import conexion
 import informes
+import invoice
 from window import *
 from windowaviso import *
 from windowcal import *
@@ -31,6 +32,20 @@ class DialogCalendar(QtWidgets.QDialog):
         var.dlgcalendar.Calendar.setSelectedDate((QtCore.QDate(diaactual,mesactual,anoactual)))
         var.dlgcalendar.Calendar.clicked.connect(clients.Clientes.cargarFecha)
 
+class DialogCalendarFac(QtWidgets.QDialog):
+    def __init__(self):
+        '''
+        ventana calendario
+        '''
+        super(DialogCalendarFac, self).__init__()
+        var.dlgcalendarFac = Ui_windowcal()
+        var.dlgcalendarFac.setupUi(self)
+        diaactual = datetime.now().day
+        mesactual = datetime.now().month
+        anoactual = datetime.now().year
+        var.dlgcalendarFac.Calendar.setSelectedDate((QtCore.QDate(diaactual, mesactual, anoactual)))
+        var.dlgcalendarFac.Calendar.clicked.connect(clients.Clientes.cargarFechaFactura)
+
 class DialogAviso(QtWidgets.QDialog):
     def __init__(self):
         '''
@@ -45,15 +60,20 @@ class Main(QtWidgets.QMainWindow):
         super(Main, self).__init__()
         var.ui = Ui_MainWindow()
         var.ui.setupUi(self)
+
+
         '''
         Eventos de botón
         '''
         var.ui.btnCalendar.clicked.connect(events.Eventos.abrircal)
-        var.ui.btnSalir.clicked.connect(events.Eventos.Salir)
+        var.ui.btnCalendar_2.clicked.connect(events.Eventos.abrircalFac)
         var.ui.btnGrabaCli.clicked.connect(clients.Clientes.guardaCli)
         var.ui.btnRefrescar.clicked.connect(clients.Clientes.limpiaFormCli)
         var.ui.btnBajaCli.clicked.connect(clients.Clientes.bajaCli)
         var.ui.btnModifCli.clicked.connect(clients.Clientes.modifCli)
+        var.ui.btnPdfcli.clicked.connect(informes.Informes.listadoClientes)
+        var.ui.btnBuscarCliFac.clicked.connect(invoice.Facturas.buscaCli)
+        var.ui.btnFacturar.clicked.connect(invoice.Facturas.facturar)
 
         '''
         Eventos del toolbar
@@ -86,6 +106,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.txtDir.editingFinished.connect(clients.Clientes.mayustxt)
 
 
+
         '''
         Barra de estado
         '''
@@ -99,15 +120,24 @@ class Main(QtWidgets.QMainWindow):
         events.Eventos.resizeTablaCli(self)
         var.ui.tabClientes.clicked.connect(clients.Clientes.cargaCli)
         var.ui.tabClientes.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
+        var.ui.tabFacturas.clicked.connect(invoice.Facturas.cargaFac)
+        
 
         '''
         Base de datos
         '''
         conexion.Conexion.db_connect(var.filedb)
         conexion.Conexion.cargaTabCli(self)
+        conexion.Conexion.cargaFacs(self)
         conexion.Conexion.cargaProv(self)
         #Carga los municipios de la provincia indicada
         var.ui.cmbPro.currentIndexChanged.connect(conexion.Conexion.cargaMuni)
+
+        '''
+        Eventos combobox
+        '''
+        conexion.Conexion.cargaCmbproducto(self)
+        var.ui.cmbProducto.currentIndexChanged.connect(invoice.Facturas.procesoVenta)
 
         '''
         SpinBox
@@ -130,7 +160,6 @@ class Main(QtWidgets.QMainWindow):
         '''
         Eventos de boton
         '''
-        var.ui.btnSalirArticulo.clicked.connect(events.Eventos.Salir)
         var.ui.btnGrabaArticulo.clicked.connect(articulos.Articulos.guardaArticulo)
         var.ui.btnBajaArticulo.clicked.connect(articulos.Articulos.bajaArticulo)
         var.ui.btnModifArticulo.clicked.connect(articulos.Articulos.modifArticulo)
@@ -149,6 +178,8 @@ class Main(QtWidgets.QMainWindow):
         conexion.Conexion.cargaTabArt(self)
 
 
+
+
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])
     window = Main()
@@ -158,6 +189,7 @@ if __name__ == '__main__':
     window.move(x, y)
     var.dlgaviso = DialogAviso()
     var.dlgcalendar = DialogCalendar()
+    var.dlgcalendarFac = DialogCalendarFac()
     var.dlgabrir = FileDialogAbrir()
     window.show()
     sys.exit(app.exec())

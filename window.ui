@@ -198,7 +198,7 @@
          <x>70</x>
          <y>40</y>
          <width>611</width>
-         <height>35</height>
+         <height>37</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_9">
@@ -261,6 +261,23 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QPushButton" name="btnBuscarCliente">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>img/lupa.png</normaloff>img/lupa.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>25</width>
+              <height>25</height>
+             </size>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
         <item>
@@ -316,32 +333,10 @@
         </item>
        </layout>
       </widget>
-      <widget class="QPushButton" name="btnSalir">
-       <property name="geometry">
-        <rect>
-         <x>490</x>
-         <y>280</y>
-         <width>82</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>MS Shell Dlg 2</family>
-         <pointsize>12</pointsize>
-         <weight>9</weight>
-         <italic>false</italic>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Salir</string>
-       </property>
-      </widget>
       <widget class="QPushButton" name="btnGrabaCli">
        <property name="geometry">
         <rect>
-         <x>220</x>
+         <x>280</x>
          <y>280</y>
          <width>83</width>
          <height>23</height>
@@ -415,7 +410,7 @@
       <widget class="QPushButton" name="btnModifCli">
        <property name="geometry">
         <rect>
-         <x>310</x>
+         <x>370</x>
          <y>280</y>
          <width>83</width>
          <height>23</height>
@@ -428,7 +423,7 @@
       <widget class="QPushButton" name="btnBajaCli">
        <property name="geometry">
         <rect>
-         <x>400</x>
+         <x>460</x>
          <y>280</y>
          <width>83</width>
          <height>23</height>
@@ -516,8 +511,8 @@
         <rect>
          <x>300</x>
          <y>200</y>
-         <width>441</width>
-         <height>25</height>
+         <width>458</width>
+         <height>29</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_6">
@@ -583,6 +578,52 @@
         </item>
        </layout>
       </widget>
+      <widget class="QPushButton" name="btnReportcli">
+       <property name="geometry">
+        <rect>
+         <x>640</x>
+         <y>270</y>
+         <width>36</width>
+         <height>36</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>img/imprimir.png</normaloff>img/imprimir.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btnPdfcli">
+       <property name="geometry">
+        <rect>
+         <x>600</x>
+         <y>270</y>
+         <width>36</width>
+         <height>36</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>img/ojo.png</normaloff>img/ojo.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+      </widget>
      </widget>
      <widget class="QTableWidget" name="tabClientes">
       <property name="geometry">
@@ -640,6 +681,234 @@
      <attribute name="title">
       <string>Facturación</string>
      </attribute>
+     <widget class="QLabel" name="lblDni">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>40</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>DNI:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lblCliente">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>80</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CLIENTE:</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="txtDni">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>40</y>
+        <width>113</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="txtCliente">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>80</y>
+        <width>113</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lblFechaFactura">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>40</y>
+        <width>101</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>FECHA FACTURA:</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="txtFechaFactura">
+      <property name="geometry">
+       <rect>
+        <x>700</x>
+        <y>40</y>
+        <width>113</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnCalendar_2">
+      <property name="geometry">
+       <rect>
+        <x>830</x>
+        <y>40</y>
+        <width>36</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>img/calendar.png</normaloff>img/calendar.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>24</width>
+        <height>24</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnFacturar">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>80</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Facturar</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnBuscarCliFac">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>30</y>
+        <width>37</width>
+        <height>33</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>img/lupa.png</normaloff>img/lupa.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="tabFacturas">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>190</y>
+        <width>261</width>
+        <height>361</height>
+       </rect>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+      <column>
+       <property name="text">
+        <string>Num. Factura</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Fecha</string>
+       </property>
+      </column>
+     </widget>
+     <widget class="QLabel" name="lblDni_2">
+      <property name="geometry">
+       <rect>
+        <x>350</x>
+        <y>40</y>
+        <width>81</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Número Factura</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lblNumFac">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>430</x>
+        <y>40</y>
+        <width>113</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="tabVentas">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>190</y>
+        <width>531</width>
+        <height>361</height>
+       </rect>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+      <column>
+       <property name="text">
+        <string>codventa</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>producto</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>precio</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>cantidad</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>total_venta</string>
+       </property>
+      </column>
+     </widget>
+     <widget class="QComboBox" name="cmbProducto">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>230</y>
+        <width>69</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_3">
      <attribute name="title">
@@ -666,32 +935,10 @@
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
-      <widget class="QPushButton" name="btnSalirArticulo">
-       <property name="geometry">
-        <rect>
-         <x>520</x>
-         <y>180</y>
-         <width>82</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>MS Shell Dlg 2</family>
-         <pointsize>12</pointsize>
-         <weight>9</weight>
-         <italic>false</italic>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Salir</string>
-       </property>
-      </widget>
       <widget class="QPushButton" name="btnGrabaArticulo">
        <property name="geometry">
         <rect>
-         <x>250</x>
+         <x>290</x>
          <y>180</y>
          <width>83</width>
          <height>23</height>
@@ -704,7 +951,7 @@
       <widget class="QPushButton" name="btnModifArticulo">
        <property name="geometry">
         <rect>
-         <x>340</x>
+         <x>380</x>
          <y>180</y>
          <width>83</width>
          <height>23</height>
@@ -717,7 +964,7 @@
       <widget class="QPushButton" name="btnBajaArticulo">
        <property name="geometry">
         <rect>
-         <x>430</x>
+         <x>470</x>
          <y>180</y>
          <width>83</width>
          <height>23</height>
@@ -1059,11 +1306,11 @@
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="rbtGroupSex"/>
   <buttongroup name="chkGroupPago">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
+  <buttongroup name="rbtGroupSex"/>
  </buttongroups>
 </ui>
