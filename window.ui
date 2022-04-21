@@ -1138,7 +1138,7 @@
        <enum>Qt::Horizontal</enum>
       </property>
      </widget>
-     <widget class="QTableWidget" name="tableWidget">
+     <widget class="QTableWidget" name="tabProveedores">
       <property name="geometry">
        <rect>
         <x>130</x>
@@ -1159,8 +1159,23 @@
         <height>350</height>
        </size>
       </property>
+      <column>
+       <property name="text">
+        <string>Nombre</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Fecha Alta</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Teléfono</string>
+       </property>
+      </column>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>250</x>
@@ -1272,7 +1287,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>210</x>
@@ -1307,7 +1322,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>220</x>
@@ -1384,7 +1399,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>340</x>
@@ -1526,6 +1541,7 @@
      <string>Informes</string>
     </property>
     <addaction name="actionListado_Clientes"/>
+    <addaction name="actionListado_Proveedores"/>
    </widget>
    <widget class="QMenu" name="menuAcerca_de">
     <property name="title">
@@ -1654,6 +1670,11 @@
   <action name="actionListado_Clientes">
    <property name="text">
     <string>Listado Clientes</string>
+   </property>
+  </action>
+  <action name="actionListado_Proveedores">
+   <property name="text">
+    <string>Listado Proveedores</string>
    </property>
   </action>
  </widget>

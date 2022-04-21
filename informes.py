@@ -57,6 +57,28 @@ class Informes():
         except Exception as error:
             print("Error al listar los clientes en informes" +error)
 
+    def listadoPro(self):
+        try:
+            var.cv = canvas.Canvas('informes/proveedores.pdf')
+            var.cv.setTitle('Listado de Proveedores')
+            var.cv.setAuthor('Departamento de Administración')
+            rootPath = '.\\informes'
+            var.cv.setFont('Helvetica-Bold', size=9)
+            textotitulo = 'PROVEEDORES'
+            Informes.cabecera(self)
+            Informes.pie(textotitulo)
+
+            var.cv.save()
+            cont = 0
+            for file in os.listdir(rootPath):
+                if file.endswith('.pdf'):
+                    os.startfile('%s/%s' % (rootPath, file))
+                cont = cont + 1
+
+        except Exception as error:
+            print("Error al listar los clientes en informes" +error)
+
+
     def cabecera(self):
         try:
             logo = '.\\img\logo_empresa.png'

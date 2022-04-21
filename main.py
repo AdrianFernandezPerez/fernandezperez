@@ -3,6 +3,7 @@ import clients
 import conexion
 import informes
 import invoice
+import proveedores
 from window import *
 from windowaviso import *
 from windowcal import *
@@ -31,6 +32,7 @@ class DialogCalendar(QtWidgets.QDialog):
         anoactual = datetime.now().year
         var.dlgcalendar.Calendar.setSelectedDate((QtCore.QDate(diaactual,mesactual,anoactual)))
         var.dlgcalendar.Calendar.clicked.connect(clients.Clientes.cargarFecha)
+        var.dlgcalendar.Calendar.clicked.connect(proveedores.Proveedor.cargarFecha)
 
 class DialogCalendarFac(QtWidgets.QDialog):
     def __init__(self):
@@ -45,6 +47,8 @@ class DialogCalendarFac(QtWidgets.QDialog):
         anoactual = datetime.now().year
         var.dlgcalendarFac.Calendar.setSelectedDate((QtCore.QDate(diaactual, mesactual, anoactual)))
         var.dlgcalendarFac.Calendar.clicked.connect(clients.Clientes.cargarFechaFactura)
+        var.dlgcalendarFac.Calendar.clicked.connect(proveedores.Proveedor.cargarFecha)
+
 
 class DialogAviso(QtWidgets.QDialog):
     def __init__(self):
@@ -60,6 +64,7 @@ class Main(QtWidgets.QMainWindow):
         super(Main, self).__init__()
         var.ui = Ui_MainWindow()
         var.ui.setupUi(self)
+
 
 
         '''
@@ -95,6 +100,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionExportar_Datos.triggered.connect(events.Eventos.ExportarDatos)
         var.ui.actionImportar_Datos.triggered.connect(events.Eventos.ImportarExcel)
         var.ui.actionListado_Clientes.triggered.connect(informes.Informes.listadoClientes)
+        var.ui.actionListado_Proveedores.triggered.connect(informes.Informes.listadoPro)
 
         '''
         Eventos caja de texto
@@ -121,7 +127,15 @@ class Main(QtWidgets.QMainWindow):
         var.ui.tabClientes.clicked.connect(clients.Clientes.cargaCli)
         var.ui.tabClientes.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
         var.ui.tabFacturas.clicked.connect(invoice.Facturas.cargaFac)
-        
+
+        '''
+        Proveedores
+        '''
+        events.Eventos.resizeTablaProv(self)
+        var.ui.tabProveedores.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
+        var.ui.tabProveedores.clicked.connect(proveedores.Proveedor.cargarProv)
+        var.ui.btnCalendarpro.clicked.connect(proveedores.Proveedor.calendarpro)
+        var.ui.btnAltaprov.clicked.connect(proveedores.Proveedor.altaprov)
 
         '''
         Base de datos
