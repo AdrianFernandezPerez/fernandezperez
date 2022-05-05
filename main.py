@@ -79,6 +79,10 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnPdfcli.clicked.connect(informes.Informes.listadoClientes)
         var.ui.btnBuscarCliFac.clicked.connect(invoice.Facturas.buscaCli)
         var.ui.btnFacturar.clicked.connect(invoice.Facturas.facturar)
+        '''Proveedores'''
+        var.ui.btnBajaprov.clicked.connect(proveedores.Proveedor.bajaProv)
+        var.ui.btnRefrescarProv.clicked.connect(proveedores.Proveedor.limpiaFormProv)
+        var.ui.btnModifprov.clicked.connect(proveedores.Proveedor.modifProv)
 
         '''
         Eventos del toolbar
@@ -145,7 +149,11 @@ class Main(QtWidgets.QMainWindow):
         conexion.Conexion.cargaFacs(self)
         conexion.Conexion.cargaProv(self)
         #Carga los municipios de la provincia indicada
+        conexion.Conexion.mostrarProvtab(self)
         var.ui.cmbPro.currentIndexChanged.connect(conexion.Conexion.cargaMuni)
+
+        '''Base de datos proveedores'''
+        conexion.Conexion.cargaFormaPago(self)
 
         '''
         Eventos combobox

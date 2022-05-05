@@ -1174,6 +1174,11 @@
         <string>Teléfono</string>
        </property>
       </column>
+      <column>
+       <property name="text">
+        <string>Forma de Pago</string>
+       </property>
+      </column>
      </widget>
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
@@ -1181,7 +1186,7 @@
         <x>250</x>
         <y>30</y>
         <width>491</width>
-        <height>34</height>
+        <height>35</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_7">
@@ -1204,6 +1209,23 @@
           <size>
            <width>120</width>
            <height>20</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnRefrescarProv">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>img/refresh.png</normaloff>img/refresh.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>25</width>
+           <height>25</height>
           </size>
          </property>
         </widget>
@@ -1488,6 +1510,32 @@
         </widget>
        </item>
       </layout>
+     </widget>
+     <widget class="QComboBox" name="cmbPago">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>130</y>
+        <width>151</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>130</y>
+        <width>31</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Pago:</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
      </widget>
     </widget>
    </widget>

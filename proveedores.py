@@ -12,7 +12,7 @@ class Proveedor():
             newpro.append(str(var.ui.txtFechaprov.text()))
             newpro.append(str(var.ui.txtEmail.text()))
             newpro.append(str(var.ui.txtTelefono.text()))
-
+            newpro.append(var.ui.cmbPago.currentText())
             conexion.Conexion.altaproveedor(newpro)
 
         except Exception as error:
@@ -50,6 +50,7 @@ class Proveedor():
             form = [var.ui.txtCif, var.ui.txtFechaprov, var.ui.txtNomprov, var.ui.txtEmail, var.ui.txtTelefono]
             for dato in form:
                 dato.setText('')
+            var.ui.cmbPago.setCurrentIndex(0)
         except Exception as error:
             print('Error en limpiar formulario proveedor')
 
@@ -63,8 +64,50 @@ class Proveedor():
             for i, dato in enumerate(form):
                 dato.setText(row[i])
             row2 = conexion.Conexion.datosprov(row[0])
+            var.ui.cmbPago.setCurrentText(str(row2[2]))
             form2 = [var.ui.txtCif, var.ui.txtEmail]
             for i, dato in enumerate(form2):
                 dato.setText(row2[i])
         except Exception as error:
             print('Error al cargar los datos de un proveedor')
+
+
+
+    '''
+    Metodo para pasar el dni al metodo que da de baja un proveedor
+    '''
+    def bajaProv(self):
+        try:
+            cif = var.ui.txtCif.text()
+            txtNomProv = var.ui.txtNomprov.text()
+            print(txtNomProv)
+            conexion.Conexion.bajaProv(cif, txtNomProv)
+            conexion.Conexion.mostrarProvtab(self)
+
+        except Exception as error:
+            print('Problemas en baja proveedor', error)
+
+    def limpiaFormProv(self):
+        try:
+            cajas = [var.ui.txtCif, var.ui.txtFechaprov, var.ui.txtNomprov, var.ui.txtTelefono, var.ui.txtEmail]
+            for i in cajas:
+                i.setText('')
+            var.ui.cmbPago.setCurrentIndex(0)
+        except Exception as error:
+            print('Error en limpiar formulario proveedores', error)
+
+    '''
+    Metodo para capturar los datos del proveedor a modificar y pasarlo al metodo que lo modifica
+    '''
+    def modifProv(self):
+        try:
+            modprov = []
+            prov = [var.ui.txtCif, var.ui.txtFechaprov, var.ui.txtNomprov, var.ui.txtTelefono, var.ui.txtEmail]
+            for i in prov:
+                modprov.append(i.text())
+            modprov.append(var.ui.cmbPago.currentText())
+            print(modprov)
+            conexion.Conexion.modifProv(modprov)
+            conexion.Conexion.mostrarProvtab(self)
+        except Exception as error:
+            print('Problemas en actualizar el proveedor', error)
