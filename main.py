@@ -83,6 +83,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnBajaprov.clicked.connect(proveedores.Proveedor.bajaProv)
         var.ui.btnRefrescarProv.clicked.connect(proveedores.Proveedor.limpiaFormProv)
         var.ui.btnModifprov.clicked.connect(proveedores.Proveedor.modifProv)
+        proveedores.Proveedor.cargarFormasPagoCombo(self)
 
         '''
         Eventos del toolbar
@@ -152,8 +153,6 @@ class Main(QtWidgets.QMainWindow):
         conexion.Conexion.mostrarProvtab(self)
         var.ui.cmbPro.currentIndexChanged.connect(conexion.Conexion.cargaMuni)
 
-        '''Base de datos proveedores'''
-        conexion.Conexion.cargaFormaPago(self)
 
         '''
         Eventos combobox

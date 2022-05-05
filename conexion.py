@@ -625,20 +625,5 @@ class Conexion():
         except Exception as error:
             print('Problemas al modificar el proveedor', error)
 
-    '''
-        Funcion que carga las formas de pago de la BD en el combobox
-        '''
 
-    def cargaFormaPago(self):
-        try:
-            query = QtSql.QSqlQuery()
-            query.prepare('select pago_id, tipo_pago from pagos')
-            if query.exec_():
-                var.ui.cmbPago.addItem("")
-                while query.next():
-                    id = str(query.value(0))
-                    pago = query.value(1)
-                    var.ui.cmbPago.addItem(pago)
-        except Exception as error:
-            print('Problemas al cargar las formas de pago de la BD')
 

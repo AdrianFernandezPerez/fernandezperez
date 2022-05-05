@@ -111,3 +111,10 @@ class Proveedor():
             conexion.Conexion.mostrarProvtab(self)
         except Exception as error:
             print('Problemas en actualizar el proveedor', error)
+
+    def cargarFormasPagoCombo(self):
+        try:
+            lstSeccion = ['','Transferencia', 'Cargo de Cuenta', 'Efectivo', 'Tarjeta']
+            var.ui.cmbPago.addItems(lstSeccion)
+        except Exception as error:
+            print('Problemas en añadir los campos al combo de pagos', error)
