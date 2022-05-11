@@ -3,6 +3,7 @@ import clients
 import conexion
 import informes
 import invoice
+import proveedores
 from window import *
 from windowaviso import *
 from windowcal import *
@@ -31,6 +32,7 @@ class DialogCalendar(QtWidgets.QDialog):
         anoactual = datetime.now().year
         var.dlgcalendar.Calendar.setSelectedDate((QtCore.QDate(diaactual,mesactual,anoactual)))
         var.dlgcalendar.Calendar.clicked.connect(clients.Clientes.cargarFecha)
+        var.dlgcalendar.Calendar.clicked.connect(proveedores.Proveedor.cargarFecha)
 
 class DialogCalendarFac(QtWidgets.QDialog):
     def __init__(self):
@@ -45,6 +47,8 @@ class DialogCalendarFac(QtWidgets.QDialog):
         anoactual = datetime.now().year
         var.dlgcalendarFac.Calendar.setSelectedDate((QtCore.QDate(diaactual, mesactual, anoactual)))
         var.dlgcalendarFac.Calendar.clicked.connect(clients.Clientes.cargarFechaFactura)
+        var.dlgcalendarFac.Calendar.clicked.connect(proveedores.Proveedor.cargarFecha)
+
 
 class DialogAviso(QtWidgets.QDialog):
     def __init__(self):
@@ -62,6 +66,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.setupUi(self)
 
 
+
         '''
         Eventos de botón
         '''
@@ -74,6 +79,11 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnPdfcli.clicked.connect(informes.Informes.listadoClientes)
         var.ui.btnBuscarCliFac.clicked.connect(invoice.Facturas.buscaCli)
         var.ui.btnFacturar.clicked.connect(invoice.Facturas.facturar)
+        '''Proveedores'''
+        var.ui.btnBajaprov.clicked.connect(proveedores.Proveedor.bajaProv)
+        var.ui.btnRefrescarProv.clicked.connect(proveedores.Proveedor.limpiaFormProv)
+        var.ui.btnModifprov.clicked.connect(proveedores.Proveedor.modifProv)
+        proveedores.Proveedor.cargarFormasPagoCombo(self)
 
         '''
         Eventos del toolbar
@@ -95,6 +105,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionExportar_Datos.triggered.connect(events.Eventos.ExportarDatos)
         var.ui.actionImportar_Datos.triggered.connect(events.Eventos.ImportarExcel)
         var.ui.actionListado_Clientes.triggered.connect(informes.Informes.listadoClientes)
+        var.ui.actionListado_Proveedores.triggered.connect(informes.Informes.listadoPro)
 
         '''
         Eventos caja de texto
@@ -121,7 +132,15 @@ class Main(QtWidgets.QMainWindow):
         var.ui.tabClientes.clicked.connect(clients.Clientes.cargaCli)
         var.ui.tabClientes.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
         var.ui.tabFacturas.clicked.connect(invoice.Facturas.cargaFac)
-        
+
+        '''
+        Proveedores
+        '''
+        events.Eventos.resizeTablaProv(self)
+        var.ui.tabProveedores.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
+        var.ui.tabProveedores.clicked.connect(proveedores.Proveedor.cargarProv)
+        var.ui.btnCalendarpro.clicked.connect(proveedores.Proveedor.calendarpro)
+        var.ui.btnAltaprov.clicked.connect(proveedores.Proveedor.altaprov)
 
         '''
         Base de datos
@@ -131,7 +150,9 @@ class Main(QtWidgets.QMainWindow):
         conexion.Conexion.cargaFacs(self)
         conexion.Conexion.cargaProv(self)
         #Carga los municipios de la provincia indicada
+        conexion.Conexion.mostrarProvtab(self)
         var.ui.cmbPro.currentIndexChanged.connect(conexion.Conexion.cargaMuni)
+
 
         '''
         Eventos combobox

@@ -485,3 +485,145 @@ class Conexion():
             return dato
         except Exception as error:
             print('Error cargar precio en conexion', error)
+
+
+    '''
+    Funciones de la ventana de proveedores
+    '''
+
+
+    def altaproveedor(newpro):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare('insert into proveedores(CIF, nombre, fechaaltaprov, email, telefono, pago) '
+                          'VALUES (:CIF, :nombre, :fechaaltaprov, :email, :telefono, :pago)')
+            query.bindValue(':CIF', newpro[0])
+            query.bindValue(':nombre', newpro[1])
+            query.bindValue(':fechaaltaprov', newpro[2])
+            query.bindValue(':email', newpro[3])
+            query.bindValue(':telefono', newpro[4])
+            query.bindValue(':pago', newpro[5])
+            if query.exec_():
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Information)
+                msg.setText('Proveedor dado de alta')
+                msg.exec()
+                Conexion.mostrarProvtab()
+            else:
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Warning)
+                msg.setText(query.lastError().text())
+                msg.exec()
+        except Exception as error:
+            print('Error en alta proveedor: ', error)
+
+    def mostrarProvtab(self = None):
+        try:
+            var.ui.tabProveedores.clearContents()
+            var.ui.tabProveedores.setRowCount(0)
+            index = 0
+            query = QtSql.QSqlQuery()
+            query.prepare('select nombre, fechaaltaprov,  telefono, pago from proveedores')
+            if query.exec_():
+                while query.next():
+                    var.ui.tabProveedores.setRowCount(index + 1)
+                    print(query.value(0))
+                    var.ui.tabProveedores.setItem(index, 0, QtWidgets.QTableWidgetItem(str(query.value(0))))
+                    var.ui.tabProveedores.item(index, 0).setTextAlignment(QtCore.Qt.AlignLeft)
+                    var.ui.tabProveedores.setItem(index, 1, QtWidgets.QTableWidgetItem(str(query.value(1))))
+                    var.ui.tabProveedores.item(index, 1).setTextAlignment(QtCore.Qt.AlignCenter)
+                    var.ui.tabProveedores.setItem(index, 2, QtWidgets.QTableWidgetItem(str(query.value(2))))
+                    var.ui.tabProveedores.item(index, 2).setTextAlignment(QtCore.Qt.AlignCenter)
+                    var.ui.tabProveedores.setItem(index, 3, QtWidgets.QTableWidgetItem(str(query.value(3))))
+                    var.ui.tabProveedores.item(index, 3).setTextAlignment(QtCore.Qt.AlignCenter)
+                    index = index + 1
+        except Exception as error:
+            print('error mostrar proveedores', error)
+    def datosprov(empresa):
+        try:
+            datos = []
+            query = QtSql.QSqlQuery()
+            query.prepare('select cif, email, pago from proveedores where nombre = :nombre')
+            query.bindValue(':nombre', str(empresa))
+            if query.exec_():
+                while query.next():
+                    datos.append(str(query.value(0)))
+                    datos.append(str(query.value(1)))
+                    datos.append(str(query.value(2)))
+                return datos
+        except Exception as error:
+            print('Error de seleccionar cif y email', error)
+
+    '''
+    Metodo para dar de baja a un proveedor
+    '''
+    def bajaProv(cif, nombre):
+        try:
+            msg = QtWidgets.QMessageBox()
+            msg.setWindowTitle('Aviso')
+            msg.setIcon(QtWidgets.QMessageBox.Warning)
+            msg.setText('¿Desea eliminar el proveedor '+ str(nombre) +'?')
+            msg.setStandardButtons(QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel)
+            msg.exec()
+            if msg.result() == QtWidgets.QMessageBox.Ok:
+                query = QtSql.QSqlQuery()
+                query.prepare('delete from proveedores where CIF = :cif')
+                query.bindValue(':cif', str(cif))
+                if query.exec_():
+                    print('Proveedor '+ nombre +' eliminado correctamente')
+                    msg = QtWidgets.QMessageBox()
+                    msg.setWindowTitle('Aviso')
+                    msg.setIcon(QtWidgets.QMessageBox.Information)
+                    msg.setText('Proveedor '+ nombre +' dado de baja')
+                    msg.exec()
+                else:
+                    msg = QtWidgets.QMessageBox()
+                    msg.setWindowTitle('Aviso')
+                    msg.setIcon(QtWidgets.QMessageBox.Warning)
+                    msg.setText(query.lastError().text())
+                    msg.exec()
+        except Exception as error:
+            print('Error en baja cliente en conexion', error)
+
+    '''
+    Metodo para modificar proveedores
+    '''
+    def modifProv(modprov):
+        try:
+            msg = QtWidgets.QMessageBox()
+            msg.setWindowTitle('Aviso')
+            msg.setIcon(QtWidgets.QMessageBox.Warning)
+            msg.setText('¿Desea modificar el proveedor '+ str(modprov[2]) +'?')
+            msg.setStandardButtons(QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel)
+            msg.exec()
+            if msg.result() == QtWidgets.QMessageBox.Ok:
+
+                query = QtSql.QSqlQuery()
+                query.prepare('Update proveedores set fechaaltaprov = :fechaaltaprov, nombre = :nombre, telefono = :telefono, email = :email , pago = :pago '
+                              'where cif = :cif')
+                query.bindValue(':cif', str(modprov[0]))
+                query.bindValue(':fechaaltaprov', str(modprov[1]))
+                query.bindValue(':nombre', str(modprov[2]))
+                query.bindValue(':telefono', str(modprov[3]))
+                query.bindValue(':email', str(modprov[4]))
+                query.bindValue(':pago', str(modprov[5]))
+                if query.exec_():
+                    msg = QtWidgets.QMessageBox()
+                    msg.setWindowTitle('Aviso')
+                    msg.setIcon(QtWidgets.QMessageBox.Information)
+                    msg.setText('Datos modificados de proveedor')
+                    msg.exec()
+                else:
+                    msg = QtWidgets.QMessageBox()
+                    msg.setWindowTitle('Aviso')
+                    msg.setIcon(QtWidgets.QMessageBox.Warning)
+                    msg.setText(query.lastError().text())
+                    msg.exec()
+
+        except Exception as error:
+            print('Problemas al modificar el proveedor', error)
+
+
+

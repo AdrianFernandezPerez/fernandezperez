@@ -57,6 +57,60 @@ class Informes():
         except Exception as error:
             print("Error al listar los clientes en informes" +error)
 
+    def listadoPro(self):
+        try:
+            var.cv = canvas.Canvas('informes/proveedores.pdf')
+            var.cv.setTitle('Listado de Proveedores')
+            var.cv.setAuthor('Departamento de Administración')
+            rootPath = '.\\informes'
+            var.cv.setFont('Helvetica-Bold', size = 9)
+            textotitulo = 'LISTADO PROVEEDORES'
+            Informes.cabecera(self)
+            Informes.pie(textotitulo)
+            var.cv.drawString(255,690, textotitulo)
+            var.cv.line(40, 685, 530, 685)
+            items = ['Nombre', 'Teléfono', 'Email']
+            var.cv.drawString(65, 675, items[0])
+            var.cv.drawString(260, 675, items[1])
+            var.cv.drawString(440, 675, items[2])
+            var.cv.line(40, 670, 530, 670)
+            query = QtSql.QSqlQuery()
+            query.prepare('select nombre, telefono, email from proveedores order by nombre')
+            var.cv.setFont('Helvetica', size = 8)
+            if query.exec_():
+                i = 50
+                j = 655
+                while query.next():
+                    if j <= 80:
+                        var.cv.drawString(440, 30, 'Página siguiente...')
+                        var.cv.showPage()
+                        Informes.cabecera(self)
+                        Informes.pie(textotitulo)
+                        var.cv.drawString(255, 690, textotitulo)
+                        var.cv.line(40, 685, 530, 685)
+                        items = ['Nombre', 'Telefono', 'Email']
+                        var.cv.drawString(65, 675, items[0])
+                        var.cv.drawString(220, 675, items[1])
+                        var.cv.drawString(370, 675, items[2])
+                        var.cv.line(40, 670, 530, 670)
+                        i = 50
+                        j = 655
+                    var.cv.setFont('Helvetica', size=8)
+                    var.cv.drawString(i, j, str(query.value(0)))
+                    var.cv.drawString(i+200, j, str(query.value(1)))
+                    var.cv.drawString(i+370, j, str(query.value(2)))
+                    j = j - 20
+
+            var.cv.save()
+            cont = 0
+            for file in os.listdir(rootPath):
+                if file.endswith('.pdf'):
+                    os.startfile('%s/%s' % (rootPath, file))
+                cont = cont + 1
+        except Exception as error:
+            print("Error al listar los proveedores en informes" +error)
+
+
     def cabecera(self):
         try:
             logo = '.\\img\logo_empresa.png'
