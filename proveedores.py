@@ -57,6 +57,7 @@ class Proveedor():
             var.ui.cmbPago.setCurrentIndex(0)
             var.ui.rbtRecogidaLocal.setChecked(False)
             var.ui.rbtTransportePedido.setChecked(False)
+            var.ui.buttonGroup.setExclusive(True)
         except Exception as error:
             print('Error en limpiar formulario proveedor')
 
@@ -103,6 +104,7 @@ class Proveedor():
             for i in cajas:
                 i.setText('')
             var.ui.cmbPago.setCurrentIndex(0)
+            var.ui.buttonGroup.setExclusive(False)
             var.ui.rbtRecogidaLocal.setChecked(False)
             var.ui.rbtTransportePedido.setChecked(False)
             var.ui.buttonGroup.setExclusive(True)
