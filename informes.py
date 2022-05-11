@@ -69,13 +69,14 @@ class Informes():
             Informes.pie(textotitulo)
             var.cv.drawString(255,690, textotitulo)
             var.cv.line(40, 685, 530, 685)
-            items = ['Nombre', 'Teléfono', 'Email']
+            items = ['Nombre', 'Teléfono', 'Email', 'Pago']
             var.cv.drawString(65, 675, items[0])
-            var.cv.drawString(260, 675, items[1])
-            var.cv.drawString(440, 675, items[2])
+            var.cv.drawString(200, 675, items[1])
+            var.cv.drawString(320, 675, items[2])
+            var.cv.drawString(440, 675, items[3])
             var.cv.line(40, 670, 530, 670)
             query = QtSql.QSqlQuery()
-            query.prepare('select nombre, telefono, email from proveedores order by nombre')
+            query.prepare('select nombre, telefono, email, pago from proveedores order by nombre')
             var.cv.setFont('Helvetica', size = 8)
             if query.exec_():
                 i = 50
@@ -88,17 +89,19 @@ class Informes():
                         Informes.pie(textotitulo)
                         var.cv.drawString(255, 690, textotitulo)
                         var.cv.line(40, 685, 530, 685)
-                        items = ['Nombre', 'Telefono', 'Email']
+                        items = ['Nombre', 'Telefono', 'Email', 'Pago']
                         var.cv.drawString(65, 675, items[0])
-                        var.cv.drawString(220, 675, items[1])
-                        var.cv.drawString(370, 675, items[2])
+                        var.cv.drawString(140, 675, items[1])
+                        var.cv.drawString(220, 675, items[2])
+                        var.cv.drawString(200, 675, items[3])
                         var.cv.line(40, 670, 530, 670)
                         i = 50
                         j = 655
                     var.cv.setFont('Helvetica', size=8)
                     var.cv.drawString(i, j, str(query.value(0)))
-                    var.cv.drawString(i+200, j, str(query.value(1)))
-                    var.cv.drawString(i+370, j, str(query.value(2)))
+                    var.cv.drawString(i+150, j, str(query.value(1)))
+                    var.cv.drawString(i+260, j, str(query.value(2)))
+                    var.cv.drawString(i + 370, j, str(query.value(3)))
                     j = j - 20
 
             var.cv.save()
