@@ -495,14 +495,15 @@ class Conexion():
     def altaproveedor(newpro):
         try:
             query = QtSql.QSqlQuery()
-            query.prepare('insert into proveedores(CIF, nombre, fechaaltaprov, email, telefono, pago) '
-                          'VALUES (:CIF, :nombre, :fechaaltaprov, :email, :telefono, :pago)')
+            query.prepare('insert into proveedores(CIF, nombre, fechaaltaprov, email, telefono, pago, formadeenvio) '
+                          'VALUES (:CIF, :nombre, :fechaaltaprov, :email, :telefono, :pago, :formadeenvio)')
             query.bindValue(':CIF', newpro[0])
             query.bindValue(':nombre', newpro[1])
             query.bindValue(':fechaaltaprov', newpro[2])
             query.bindValue(':email', newpro[3])
             query.bindValue(':telefono', newpro[4])
             query.bindValue(':pago', newpro[5])
+            query.bindValue(':formadeenvio', newpro[6])
             if query.exec_():
                 msg = QtWidgets.QMessageBox()
                 msg.setWindowTitle('Aviso')
@@ -545,13 +546,14 @@ class Conexion():
         try:
             datos = []
             query = QtSql.QSqlQuery()
-            query.prepare('select cif, email, pago from proveedores where nombre = :nombre')
+            query.prepare('select cif, email, pago, formadeenvio from proveedores where nombre = :nombre')
             query.bindValue(':nombre', str(empresa))
             if query.exec_():
                 while query.next():
                     datos.append(str(query.value(0)))
                     datos.append(str(query.value(1)))
                     datos.append(str(query.value(2)))
+                    datos.append(str(query.value(3)))
                 return datos
         except Exception as error:
             print('Error de seleccionar cif y email', error)
@@ -602,13 +604,14 @@ class Conexion():
 
                 query = QtSql.QSqlQuery()
                 query.prepare('Update proveedores set fechaaltaprov = :fechaaltaprov, nombre = :nombre, telefono = :telefono, email = :email , pago = :pago '
-                              'where cif = :cif')
+                              ', formadeenvio = :formadeenvio where cif = :cif')
                 query.bindValue(':cif', str(modprov[0]))
                 query.bindValue(':fechaaltaprov', str(modprov[1]))
                 query.bindValue(':nombre', str(modprov[2]))
                 query.bindValue(':telefono', str(modprov[3]))
                 query.bindValue(':email', str(modprov[4]))
                 query.bindValue(':pago', str(modprov[5]))
+                query.bindValue(':formadeenvio', str(modprov[6]))
                 if query.exec_():
                     msg = QtWidgets.QMessageBox()
                     msg.setWindowTitle('Aviso')

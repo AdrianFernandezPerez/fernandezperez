@@ -1549,6 +1549,9 @@
       <property name="text">
        <string>Recodiga en local</string>
       </property>
+      <attribute name="buttonGroup">
+       <string notr="true">buttonGroup</string>
+      </attribute>
      </widget>
      <widget class="QRadioButton" name="rbtTransportePedido">
       <property name="geometry">
@@ -1562,6 +1565,9 @@
       <property name="text">
        <string>Transporte del pedido</string>
       </property>
+      <attribute name="buttonGroup">
+       <string notr="true">buttonGroup</string>
+      </attribute>
      </widget>
     </widget>
    </widget>
@@ -1761,5 +1767,6 @@
     <bool>false</bool>
    </property>
   </buttongroup>
+  <buttongroup name="buttonGroup"/>
  </buttongroups>
 </ui>

@@ -13,6 +13,10 @@ class Proveedor():
             newpro.append(str(var.ui.txtEmail.text()))
             newpro.append(str(var.ui.txtTelefono.text()))
             newpro.append(var.ui.cmbPago.currentText())
+            if var.ui.rbtRecogidaLocal.isChecked():
+                newpro.append('Recogida en local')
+            else:
+                newpro.append('Transporte del pedido')
             conexion.Conexion.altaproveedor(newpro)
 
         except Exception as error:
@@ -51,6 +55,8 @@ class Proveedor():
             for dato in form:
                 dato.setText('')
             var.ui.cmbPago.setCurrentIndex(0)
+            var.ui.rbtRecogidaLocal.setChecked(False)
+            var.ui.rbtTransportePedido.setChecked(False)
         except Exception as error:
             print('Error en limpiar formulario proveedor')
 
@@ -65,6 +71,10 @@ class Proveedor():
                 dato.setText(row[i])
             row2 = conexion.Conexion.datosprov(row[0])
             var.ui.cmbPago.setCurrentText(str(row2[2]))
+            if str(row2[3]) == 'Recogida en local':
+                var.ui.rbtRecogidaLocal.setChecked(True)
+            elif str(row2[3]) == 'Transporte del pedido':
+                var.ui.rbtTransportePedido.setChecked(True)
             form2 = [var.ui.txtCif, var.ui.txtEmail]
             for i, dato in enumerate(form2):
                 dato.setText(row2[i])
@@ -93,6 +103,9 @@ class Proveedor():
             for i in cajas:
                 i.setText('')
             var.ui.cmbPago.setCurrentIndex(0)
+            var.ui.rbtRecogidaLocal.setChecked(False)
+            var.ui.rbtTransportePedido.setChecked(False)
+            var.ui.buttonGroup.setExclusive(True)
         except Exception as error:
             print('Error en limpiar formulario proveedores', error)
 
@@ -106,6 +119,10 @@ class Proveedor():
             for i in prov:
                 modprov.append(i.text())
             modprov.append(var.ui.cmbPago.currentText())
+            if var.ui.rbtRecogidaLocal.isChecked():
+                modprov.append('Recogida en local')
+            else:
+                modprov.append('Transporte del pedido')
             print(modprov)
             conexion.Conexion.modifProv(modprov)
             conexion.Conexion.mostrarProvtab(self)
