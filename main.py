@@ -68,6 +68,8 @@ class OrdenarAviso(QtWidgets.QDialog):
         super(OrdenarAviso, self).__init__()
         var.dlgordenar = Ui_Ordenar()
         var.dlgordenar.setupUi(self)
+        '''Cargamos combo campo a ordenar'''
+        events.Eventos.cargarComboOrdenar(self)
 
 class Main(QtWidgets.QMainWindow):
     def __init__(self):
@@ -94,7 +96,6 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnRefrescarProv.clicked.connect(proveedores.Proveedor.limpiaFormProv)
         var.ui.btnModifprov.clicked.connect(proveedores.Proveedor.modifProv)
         proveedores.Proveedor.cargarFormasPagoCombo(self)
-        informes.Informes.cargarComboOrdenar(self)
 
         '''
         Eventos del toolbar

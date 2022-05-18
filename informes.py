@@ -1,9 +1,10 @@
 import var, os
-
+from windowordenar import *
 from PyQt5 import QtSql
 from reportlab.pdfgen import canvas
 from datetime import datetime
 import sys
+import informes
 
 class Informes():
     def listadoClientes(self):
@@ -155,9 +156,4 @@ class Informes():
         except Exception as error:
             print('Error al ordenar por un campo', error)
 
-    def cargarComboOrdenar(self):
-        try:
-            lstSeccion = ['','Nombre', 'Pago']
-            var.ui.cmbCampo.addItems(lstSeccion)
-        except Exception as error:
-            print('Problemas en añadir los campos al combo de pagos', error)
+

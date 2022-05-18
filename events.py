@@ -232,3 +232,10 @@ class Eventos():
                     header.setSectionResizeMode(i,QtWidgets.QHeaderView.ResizeToContents)
         except Exception as error:
             print('Error al redimensionar la tabla proveedores', error)
+
+    def cargarComboOrdenar(self):
+        try:
+            lstSeccion = ['','Nombre', 'Pago']
+            var.dlgordenar.cmbCampo.addItems(lstSeccion)
+        except Exception as error:
+            print('Problemas en añadir los campos al combo de pagos', error)
