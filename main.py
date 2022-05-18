@@ -6,6 +6,7 @@ import invoice
 import proveedores
 from window import *
 from windowaviso import *
+from windowordenar import *
 from windowcal import *
 from datetime import *
 import sys, var, events, locale
@@ -59,6 +60,15 @@ class DialogAviso(QtWidgets.QDialog):
         var.dlgaviso = Ui_Aviso()
         var.dlgaviso.setupUi(self)
 
+class OrdenarAviso(QtWidgets.QDialog):
+    def __init__(self):
+        '''
+        Clase que instancia la ventana de aviso ordenar por
+        '''
+        super(OrdenarAviso, self).__init__()
+        var.dlgordenar = Ui_Ordenar()
+        var.dlgordenar.setupUi(self)
+
 class Main(QtWidgets.QMainWindow):
     def __init__(self):
         super(Main, self).__init__()
@@ -84,6 +94,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnRefrescarProv.clicked.connect(proveedores.Proveedor.limpiaFormProv)
         var.ui.btnModifprov.clicked.connect(proveedores.Proveedor.modifProv)
         proveedores.Proveedor.cargarFormasPagoCombo(self)
+        informes.Informes.cargarComboOrdenar(self)
 
         '''
         Eventos del toolbar
@@ -105,7 +116,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionExportar_Datos.triggered.connect(events.Eventos.ExportarDatos)
         var.ui.actionImportar_Datos.triggered.connect(events.Eventos.ImportarExcel)
         var.ui.actionListado_Clientes.triggered.connect(informes.Informes.listadoClientes)
-        var.ui.actionListado_Proveedores.triggered.connect(informes.Informes.listadoPro)
+        '''var.ui.actionListado_Proveedores.triggered.connect(informes.Informes.listadoPro)'''
+        var.ui.actionListado_Proveedores.triggered.connect(informes.Informes.ordenarPor)
 
         '''
         Eventos caja de texto
@@ -209,6 +221,7 @@ if __name__ == '__main__':
     y = (desktop.height() - window.height()) // 2
     window.move(x, y)
     var.dlgaviso = DialogAviso()
+    var.dlgordenar = OrdenarAviso()
     var.dlgcalendar = DialogCalendar()
     var.dlgcalendarFac = DialogCalendarFac()
     var.dlgabrir = FileDialogAbrir()

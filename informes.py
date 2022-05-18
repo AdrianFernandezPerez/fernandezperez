@@ -1,8 +1,10 @@
-import os, var
+import var, os
 
 from PyQt5 import QtSql
 from reportlab.pdfgen import canvas
 from datetime import datetime
+import sys
+
 class Informes():
     def listadoClientes(self):
         try:
@@ -99,9 +101,9 @@ class Informes():
                         j = 655
                     var.cv.setFont('Helvetica', size=8)
                     var.cv.drawString(i, j, str(query.value(0)))
-                    var.cv.drawString(i+150, j, str(query.value(1)))
+                    var.cv.drawString(i+145, j, str(query.value(1)))
                     var.cv.drawString(i+260, j, str(query.value(2)))
-                    var.cv.drawString(i + 370, j, str(query.value(3)))
+                    var.cv.drawString(i + 375, j, str(query.value(3)))
                     j = j - 20
 
             var.cv.save()
@@ -142,3 +144,20 @@ class Informes():
 
         except Exception as error:
             print('Error creación de pie de informe clientes', error)
+
+    def ordenarPor(self):
+        try:
+            var.dlgordenar.show()
+            if var.dlgordenar.exec():
+                sys.exit()
+            else:
+                var.dlgaviso.hide()
+        except Exception as error:
+            print('Error al ordenar por un campo', error)
+
+    def cargarComboOrdenar(self):
+        try:
+            lstSeccion = ['','Nombre', 'Pago']
+            var.ui.cmbCampo.addItems(lstSeccion)
+        except Exception as error:
+            print('Problemas en añadir los campos al combo de pagos', error)
