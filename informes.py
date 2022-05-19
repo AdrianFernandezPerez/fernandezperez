@@ -62,6 +62,8 @@ class Informes():
 
     def listadoPro(self):
         try:
+            texto = str(var.texto)
+            print(texto)
             var.cv = canvas.Canvas('informes/proveedores.pdf')
             var.cv.setTitle('Listado de Proveedores')
             var.cv.setAuthor('Departamento de Administración')
@@ -79,7 +81,8 @@ class Informes():
             var.cv.drawString(440, 675, items[3])
             var.cv.line(40, 670, 530, 670)
             query = QtSql.QSqlQuery()
-            query.prepare('select nombre, telefono, email, pago from proveedores order by nombre')
+            query.prepare('select nombre, telefono, email, pago from proveedores order by +'+texto)
+
             var.cv.setFont('Helvetica', size = 8)
             if query.exec_():
                 i = 50
@@ -156,4 +159,9 @@ class Informes():
         except Exception as error:
             print('Error al ordenar por un campo', error)
 
+    def obtenerTexto(texto):
+        try:
+            var.texto = texto
+        except Exception as error:
+            print('Error al obtener el dato')
 

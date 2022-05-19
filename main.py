@@ -70,6 +70,9 @@ class OrdenarAviso(QtWidgets.QDialog):
         var.dlgordenar.setupUi(self)
         '''Cargamos combo campo a ordenar'''
         events.Eventos.cargarComboOrdenar(self)
+        var.dlgordenar.cmbCampo.activated[str].connect(informes.Informes.obtenerTexto)
+        var.dlgordenar.btnAceptar.clicked.connect(informes.Informes.listadoPro)
+
 
 class Main(QtWidgets.QMainWindow):
     def __init__(self):
