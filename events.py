@@ -239,3 +239,22 @@ class Eventos():
             var.dlgordenar.cmbCampo.addItems(lstSeccion)
         except Exception as error:
             print('Problemas en añadir los campos al combo de pagos', error)
+
+    def cargarComboTipo(self):
+        try:
+            lstSeccion = ['','Pdf', 'Excel']
+            var.dlgordenar.cmbTipo.addItems(lstSeccion)
+        except Exception as error:
+            print('Problemas en añadir los campos al combo de tipos', error)
+
+    def selTipo(self):
+        try:
+
+            if var.dlgordenar.rbtPdf.isChecked():
+                print("Pdf seleccionado")
+            if var.dlgordenar.rbtExcel.isChecked():
+                print("Excel seleccionado")
+        except Exception as error:
+            print('Error al obtener el tipo: ', error)
+
+

@@ -70,8 +70,23 @@ class OrdenarAviso(QtWidgets.QDialog):
         var.dlgordenar.setupUi(self)
         '''Cargamos combo campo a ordenar'''
         events.Eventos.cargarComboOrdenar(self)
+        events.Eventos.cargarComboTipo(self)
         var.dlgordenar.cmbCampo.activated[str].connect(informes.Informes.obtenerTexto)
-        var.dlgordenar.btnAceptar.clicked.connect(informes.Informes.listadoPro)
+        var.dlgordenar.cmbTipo.activated[str].connect(informes.Informes.obtenerTipo)
+
+
+
+        var.dlgordenar.btnAceptar.clicked.connect(informes.Informes.tipoInforme)
+
+        '''var.dlgordenar.rbtGroupTipo.buttonClicked.connect(events.Eventos.selTipo)'''
+
+        '''
+        if var.dlgordenar.rbtPdf.isChecked() and var.dlgordenar.btnAceptar.clicked:
+            var.dlgordenar.btnAceptar.clicked.connect(informes.Informes.listadoPro)
+            print("Hola")
+        elif var.dlgordenar.rbtExcel.isChecked() and var.dlgordenar.btnAceptar.clicked:
+            var.dlgordenar.btnAceptar.clicked.connect(informes.Informes.listadoPro)
+        '''
 
 
 class Main(QtWidgets.QMainWindow):
@@ -213,6 +228,7 @@ class Main(QtWidgets.QMainWindow):
         Base de datos
         '''
         conexion.Conexion.cargaTabArt(self)
+
 
 
 

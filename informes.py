@@ -3,6 +3,8 @@ from windowordenar import *
 from PyQt5 import QtSql
 from reportlab.pdfgen import canvas
 from datetime import datetime
+import xlwt as xlwt
+from PyQt5.QtWidgets import QMessageBox
 import sys
 import informes
 
@@ -119,6 +121,48 @@ class Informes():
         except Exception as error:
             print("Error al listar los proveedores en informes" +error)
 
+    def listadoProExcel(self):
+        try:
+            fecha = datetime.today()
+            fecha = fecha.strftime('%Y.%m.%d.%H.%M.%S')
+            var.copia = (str(fecha) + '_dataExport.xls')
+            option = QtWidgets.QFileDialog.Options()
+            rootPath = '.\\informes'
+            directorio, filename = var.dlgabrir.getSaveFileName(None, 'InformesProveedores.xls')
+            wb = xlwt.Workbook()
+            # add_sheet is used to create sheet.
+            sheet1 = wb.add_sheet('Hoja 1')
+
+            # Cabeceras
+            sheet1.write(0, 0, 'CIF')
+            sheet1.write(0, 1, 'NOMBRE')
+            sheet1.write(0, 2, 'FECHAALTAPROV')
+            sheet1.write(0, 3, 'EMAIL')
+            sheet1.write(0, 4, 'TELEFONO')
+            sheet1.write(0, 5, 'PAGO')
+            sheet1.write(0, 6, 'FORMADEENVIO')
+            f = 1
+            query = QtSql.QSqlQuery()
+            query.prepare('SELECT *  FROM proveedores')
+            if query.exec_():
+                while query.next():
+                    sheet1.write(f, 0, query.value(0))
+                    sheet1.write(f, 1, query.value(1))
+                    sheet1.write(f, 2, query.value(2))
+                    sheet1.write(f, 3, query.value(3))
+                    sheet1.write(f, 4, query.value(4))
+                    sheet1.write(f, 5, query.value(5))
+                    sheet1.write(f, 6, query.value(6))
+                    f += 1
+            wb.save(directorio)
+            cont = 0
+            for file in os.listdir(rootPath):
+
+                if file.endswith('InformesProveedores.xls'):
+                    os.startfile('%s/%s' % (rootPath, file))
+                cont = cont + 1
+        except Exception as error:
+            print("Error al listar los proveedores en excel" +error)
 
     def cabecera(self):
         try:
@@ -152,6 +196,7 @@ class Informes():
     def ordenarPor(self):
         try:
             var.dlgordenar.show()
+
             if var.dlgordenar.exec():
                 sys.exit()
             else:
@@ -164,4 +209,37 @@ class Informes():
             var.texto = texto
         except Exception as error:
             print('Error al obtener el dato')
+
+    def obtenerTipo(tipo):
+        try:
+            var.tipo = tipo
+        except Exception as error:
+            print('Error al obtener el tipo')
+
+    def tipoInforme(self):
+        try:
+            if var.tipo == "Pdf":
+                informes.Informes.listadoPro(self)
+            if var.tipo == "Excel":
+                informes.Informes.exportarDatosExcel(self)
+        except Exception as error:
+            print('Error al obtener el var.tipo')
+
+    '''
+    Metodo para exportar datos 
+    '''
+    def exportarDatosExcel(self):
+        try:
+            informes.Informes.listadoProExcel(self)
+            try:
+                msgBox = QMessageBox()
+                msgBox.setIcon(QtWidgets.QMessageBox.Information)
+                msgBox.setText("Datos exportados con éxito.")
+                msgBox.setWindowTitle("Operación completada")
+                msgBox.setStandardButtons(QMessageBox.Ok)
+                msgBox.exec()
+            except Exception as error:
+                print('Error en mensaje generado exportar datos ', error)
+        except Exception as error:
+            print('Error en evento exportar datos ', error)
 
