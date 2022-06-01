@@ -57,19 +57,6 @@ class Facturas():
             print('Error al facturar en invoice')
 
 
-    def cargaLineaVenta(self):
-        try:
-            index = 0
-            var.cmbProducto = QtWidgets.QComboBox()
-            var.cmbProducto.setFixedSize(180, 25)
-            conexion.Conexion.cargaCmbproducto(var.cmbProducto)
-            var.txtCantidad.setFixedSize(70,25)
-            var.txtCantidad.setAlignment(QtCore.Qt.AlignCenter)
-            var.ui.tabVentas.setRowCount(index+1)
-            var.ui.tabVentas.setCellWidget(index, 1, var.cmbProducto)
-            var.ui.tabVentas.setCellWidget(index, 3, var.txtCantidad)
-        except Exception as error:
-            print('Error carga linea venta', self)
 
     def procesoVenta(self):
         try:
@@ -80,3 +67,33 @@ class Facturas():
             var.ui.tabVentas.setItem(row, 2, QtWidgets.QTableWidgetItem(str(dato[1])))
         except Exception as error:
             print('Error proceso venta', self)
+
+    def limpiaFormFac(self):
+        """
+
+        Método que vacía el formulario de la interfaz de facturación para poder realizar otros procesos.
+
+        """
+        try:
+            cajas = [var.ui.txtDni, var.ui.txtCliente, var.ui.lblNumFac, var.ui.txtFechaFactura]
+            for i in cajas:
+                i.setText('')
+            Facturas.vaciarTabVentas()
+        except Exception as error:
+            print('Error en módulo limpiar formulario ',error)
+
+
+    def vaciarTabVentas(self=None):
+        """
+
+        Método que vacía la tabla y los campos referentes a las lineas de venta en la interfaz para futuras operaciones.
+
+        """
+        try:
+            var.ui.txtSubtotal_2.setText('')
+            var.ui.txtIva_2.setText('')
+            var.ui.txtTotal_2.setText('')
+
+        except Exception as error:
+            print('Error en vaciarTabVentas: ',error)
+

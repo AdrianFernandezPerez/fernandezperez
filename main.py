@@ -109,6 +109,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnPdfcli.clicked.connect(informes.Informes.listadoClientes)
         var.ui.btnBuscarCliFac.clicked.connect(invoice.Facturas.buscaCli)
         var.ui.btnFacturar.clicked.connect(invoice.Facturas.facturar)
+        var.ui.btnLimpiarFact.clicked.connect(invoice.Facturas.limpiaFormFac)
         '''Proveedores'''
         var.ui.btnBajaprov.clicked.connect(proveedores.Proveedor.bajaProv)
         var.ui.btnRefrescarProv.clicked.connect(proveedores.Proveedor.limpiaFormProv)

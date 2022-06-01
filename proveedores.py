@@ -41,7 +41,7 @@ class Proveedor():
             if var.ui.tabWidget.currentIndex() == 0:
                 var.ui.txtAltaCli.setText(str(data))
             elif var.ui.tabWidget.currentIndex() == 1:
-                var.ui.txtFechafac.setText(str(data))
+                var.ui.txtFechaFactura.setText(str(data))
             elif var.ui.tabWidget.currentIndex() == 3:
                 var.ui.txtFechaprov.setText(str(data))
             var.dlgcalendar.hide()
