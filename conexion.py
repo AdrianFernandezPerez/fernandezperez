@@ -470,7 +470,7 @@ class Conexion():
                 while query.next():
                     var.cmbProducto.addItem(str(query.value(0)))
         except Exception as error:
-            print('Error cargar combo productos', error)
+            '''print('Error cargar combo productos', error)'''
 
     def obtenerCodPrecio(articulo):
         try:
